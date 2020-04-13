@@ -1,3 +1,4 @@
+import logging
 import http.server
 import socketserver
 import getpass
@@ -8,8 +9,7 @@ class MyHTTPHandler(http.server.SimpleHTTPRequestHander):
             self.client_adress[0],
             self.log_date_time_string(),
             format%args
-        )
-        )
+        ))
 
 logging.basicConfig(
     filename='/log/http-server.log',
@@ -17,10 +17,10 @@ logging.basicConfig(
     level=logging.INFO
 )
 logging.getLogger().addHandler(logging.StreamHandler())
-logging.info('init...')
+logging.info('inicializando...')
 PORT = 8000
 
 httpd = socketserver.TCPServer(("",PORT), MyHTTPHandler)
-logging.info('escutando a porta: %', PORT)
+logging.info('escutando a porta: %s', PORT)
 logging.info('usuário: %s', getpass.getuser())
-httpd.server_forever()
+httpd.serve_forever()
